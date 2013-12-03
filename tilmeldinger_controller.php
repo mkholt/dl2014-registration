@@ -10,9 +10,16 @@ class tilmeldinger_controller extends Controller {
 
 		// Register header scripts
 		add_action('wp_head', array("index_controller", 'registerHead'));
+		add_action('wp_head', array($this, 'registerHead'));
 
 		// Hide the toolbar if the current use is a group admin
 		add_filter('show_admin_bar', array($this,'admin_bar'));
+	}
+
+	public function registerHead()
+	{
+		wp_register_script('prereg-script', self::get_plugin_url() . 'js/prereg.js');
+		wp_enqueue_script('prereg-script');
 	}
 
 	public function admin_bar()

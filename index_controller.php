@@ -15,7 +15,7 @@ class index_controller extends Controller
 		wp_register_style('index-style', self::get_plugin_url() .'css/index.css');
 		wp_register_style('jquery-ui', self::get_plugin_url() . 'css/smoothness/jquery-ui-1.10.3.custom.css');
 		
-		wp_register_script('prereg-script', self::get_plugin_url() . 'js/script.js');
+		wp_register_script('registration-script', self::get_plugin_url() . 'js/script.js');
 		wp_register_script('blockui', self::get_plugin_url() . 'js/jquery.blockUI.js');
 		wp_register_script('jquery-ui', self::get_plugin_url() . 'js/jquery-ui-1.10.3.custom.js');
 		wp_register_script('jquery-ui-da', self::get_plugin_url() . 'js/jquery.ui.datepicker-da.js');
@@ -28,7 +28,7 @@ class index_controller extends Controller
 		wp_enqueue_script('jquery-ui');
 		wp_enqueue_script('jquery-ui-da');
 		wp_enqueue_script('moment');
-		wp_enqueue_script('prereg-script');
+		wp_enqueue_script('registration-script');
 	}
 
 	public static function registerHead() {

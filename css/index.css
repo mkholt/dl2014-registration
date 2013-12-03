@@ -128,6 +128,10 @@ span.rate, span.total {
 	background: #FFF;
 }
 
+#preregistration-overview #add-wrapper, #preregistration-overview #reset-wrapper {
+	float: left;
+}
+
 .editDialogs {
 	display: none;
 }

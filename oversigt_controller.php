@@ -10,6 +10,13 @@ class oversigt_controller extends Controller {
 
 		// Register header scripts
 		add_action('wp_head', array("index_controller", 'registerHead'));
+		add_action('wp_head', array($this, 'registerHead'));
+	}
+
+	public function registerHead()
+	{
+		wp_register_script('overview-script', self::get_plugin_url() . 'js/overview.js');
+		wp_enqueue_script('overview-script');
 	}
 
 	public function index()
