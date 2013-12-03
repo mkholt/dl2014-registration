@@ -1,0 +1,156 @@
+#preregistration-update tr.new .remove {
+	visibility: hidden;
+}
+
+#preregistration-update table {
+	/*width: auto !important;*/
+}
+
+#preregistration-update input[type=text] {
+	width: 5em;
+	text-align: right;
+}
+
+#preregistration-update input.name {
+	width: 10em;
+	text-align: left;
+}
+
+#preregistration-update input.email {
+	width: 20em;
+	text-align: left;
+}
+
+#preregistration-update .totalhead, #preregistration-update .total {
+	text-align: right;
+	font-weight: bold;
+}
+
+#preregistration-update td.price,
+#preregistration-update td.rate {
+	text-align: right;
+}
+
+span.rate, span.total {
+	font-weight: bold;
+}
+
+#preregistration-overview th,
+#preregistration-update th {
+	text-align: center;
+}
+
+#preregistration-overview td.count,
+#preregistration-overview th.count,
+#preregistration-overview td.days,
+#preregistration-overview th.days {
+	border-left: 1px solid #ededed;
+}
+
+#preregistration-overview td.count span {
+	cursor: pointer;
+}
+
+#preregistration-overview td.days, tfoot td {
+	font-weight: bold;
+}
+
+#preregistration-overview tfoot td {
+	border-style: solid none solid solid;
+	border-width: 1px;
+	border-color: #000 #EDEDED;
+}
+
+#preregistration-overview tfoot td:first-child {
+	text-align: right;
+}
+
+#preregistration-overview td {
+	text-align: center;
+}
+
+#preregistration-overview td.group, #preregistration-overview th.group {
+	text-align: left;
+}
+
+#preregistration-overview tr:nth-child(odd) td {
+	background: #FAFAFA;
+}
+
+#preregistration-overview td {
+	position: relative;
+}
+
+#preregistration-overview input[type=text], #preregistration-overview select {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: auto !important;
+
+	text-align: center;
+	padding: 6px 10px 6px 0;
+	background-color: #DDD;
+
+	display: none;
+}
+
+#preregistration-overview .groupRow.new {
+	display: none;
+}
+
+#preregistration-overview .editWrapper {
+	display: none;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	width: 170px;
+}
+
+#preregistration-overview .editWrapper span {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	padding: 4px 5px 0;
+	border: 1px solid rgb(127, 127, 127);
+	border: 1px solid rgba(0, 0, 0, .5);
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	border-radius: 5px;
+
+	background: #FFF;
+}
+
+.editDialogs {
+	display: none;
+}
+
+.editDialog h1 {
+	border-bottom: 1px solid #ededed;
+}
+
+.editDialog form,
+.editDialog h2 {
+	margin-top: 5px
+}
+
+.editDialog form label {
+	display: inline-block;
+	width: 115px;
+}
+
+span.message {
+	clear: both;
+	display: block;
+}
+
+span.message.success {
+	color: #0A0;
+}
+
+span.message.error, div.message.error {
+	color: #A00;
+}
