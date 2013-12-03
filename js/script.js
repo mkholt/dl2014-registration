@@ -36,10 +36,11 @@
 
 			$("input[type=text], select", newRow).val("");
 			$(".birthdate", newRow).removeAttr('id').removeClass('hasDatepicker');
-			$(".remove", newRow).attr('disabled', false);
+			$(".remove", newRow).prop('disabled', false);
 
 			$(this).closest("tbody").append(newRow);
 			$(".birthdate", newRow).datepicker(dpSettings);
+			changeAge.apply($(".age", newRow));
 		});
 
 		$("#preregistration-update").on('change', '.birthdate', function() {
@@ -78,22 +79,35 @@
 			});
 		});
 		
-		$("#preregistration-update").on('change', '.length, .age', function() {
+		var changeAge = function() {
 			var row = $(this).closest("tr");
 			var lengthSelector = $(".length", row);
 			var ageSelector = $(".age", row);
 
-			var price = ages[ageSelector.val()].price[lengthSelector.val()];
-			var rates = ages[ageSelector.val()].rate[lengthSelector.val()];
-
-			$(".price", row).data('price', price).text(convertPrice(price));
-			for (var i = 0; i < rates.length; i++)
+			if (ageSelector.val() == '')
 			{
-				$(".rate[data-rate=" + (i+1) + "]", row).data('price', rates[i]).text(convertPrice(rates[i]));
+				$(".price", row).data('price', 0).text(convertPrice(0));
+				for (var i = 0; i < rate_count; i++)
+				{
+					$(".rate[data-rate=" + (i+1) + "]", row).data('price', 0).text(convertPrice(0));
+				}
+			}
+			else
+			{
+				var price = ages[ageSelector.val()]['price'][lengthSelector.val()];
+				var rates = ages[ageSelector.val()]['rate'][lengthSelector.val()];
+
+				$(".price", row).data('price', price).text(convertPrice(price));
+				for (var i = 0; i < rates.length; i++)
+				{
+					$(".rate[data-rate=" + (i+1) + "]", row).data('price', rates[i]).text(convertPrice(rates[i]));
+				}
 			}
 
 			calculateTotals();
-		});
+		};
+
+		$("#preregistration-update").on('change', '.length, .age', changeAge);
 
 		$("#preregistration-update").on('click', '.remove', function() {
 			var row = $(this).closest('tr');
@@ -101,9 +115,10 @@
 
 			var name = $(".name", row).val();
 
-			if (name == '' || confirm("Er du sikker på at du vil fjerne tilmelding af " + name + "?"))
+			if (name == '' || confirm("Er du sikker på at du vil fjerne tilmeldingen af " + name + "?"))
 			{
 				row.remove();
+				calculateTotals();
 			}
 		});
 
@@ -121,11 +136,11 @@
 				});
 			});
 
-			// console.log(o); $.unblockUI(); return false;
-
 			$("span.message").removeClass("success").removeClass("error").text("");
+			$("#email").removeClass('error');
 			$.post(page_url + "/tilmeldinger/save/" + $(this).data('userid'), {'registrations': o, 'email': $("#preregistration-update .email").val()}, function(data) {
-				$("span.message").addClass(data.status ? "success" : "error").text(data.message);
+				$("span.message").addClass(data.status === true ? "success" : "error").text(data.message);
+				if (data.status == -2) $("#email").addClass('error');
 				calculateTotals();
 				$.unblockUI();
 			}, 'json');

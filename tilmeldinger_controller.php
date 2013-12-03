@@ -98,7 +98,7 @@ class tilmeldinger_controller extends Controller {
 		$status = $im->set_pre_registration($_POST['registrations'], $_POST['email'], $userId);
 		$this->send_json(array(
 			"status" => $status,
-			"message" => ($status) ? "Din forhåndstilmelding blev opdateret." : "Der skete en fejl, prøv venligst igen.",
+			"message" => ($status === true) ? "Din forhåndstilmelding blev opdateret." : "Der skete en fejl, prøv venligst igen.",
 		));
 	}
 }

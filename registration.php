@@ -50,7 +50,7 @@ class Registration {
 	 */
 	public function wp_query_checker($q) {
 		
-		if( ! $q->is_main_query() ) {
+		if(! $q->is_main_query()) {
 			return $q;
 		}
 		
@@ -100,8 +100,8 @@ class Registration {
 				
 				$registration_page_request_active = TRUE;
 				$registration_request = rtrim( $registration_request, '/' );
-				$q->set( 'registration_request', $registration_request );
-				
+				$q->set('registration_request', $registration_request);
+
 				return $q;	
 			}
 			
@@ -113,7 +113,7 @@ class Registration {
 			 * Using permalinks and $_SERVER['REQUEST_URI'] is not set
 			 * i.e. sniffed from $q->query_vars['pagename']
 			 */
-			if( ! isset( $this_controller_name ) ) {
+			if(!isset($this_controller_name)) {
 				$this_controller_name = $q->query_vars['pagename'];
 			}
 			
@@ -122,8 +122,8 @@ class Registration {
 			
 			$registration_request = $q->query_vars['pagename'];
 			$registration_request = rtrim( $registration_request, '/' );
-			$q->set( 'registration_request', $registration_request );
-			
+			$q->set('registration_request', $registration_request);
+
 			return $q;
 			
 		}
@@ -141,8 +141,7 @@ class Registration {
 	 * @param   array $posts A single element array of posts.
 	 * @return  array $posts
 	 */
-	function posts_filter( $posts ) {
-		
+	function posts_filter($posts) {
 		global $wp_query;
 		
 		/**
@@ -155,11 +154,13 @@ class Registration {
 		 */
 		global $registration_page_request_active;
 		
-		if ( $registration_page_request_active ) {
+		if ($registration_page_request_active)
+		{
 			/**
 			 * Prevent WP from "cleaning-up" views
 			 */
-			remove_filter( 'the_content', 'wpautop' );
+			remove_filter('the_content', 'wpautop');
+			remove_filter('the_content', 'wptexturize');
 
 			/**
 			 * Prevent canonical redirects
@@ -171,10 +172,10 @@ class Registration {
 			 */
 			if (!$posts) {
 				if(defined('REGISTRATION_PAGE_CONTROLLER_NAME')) {
-					$posts = array( get_page_by_path( $_id=REGISTRATION_PAGE_CONTROLLER_NAME ) );
+					$posts = array(get_page_by_path($_id=REGISTRATION_PAGE_CONTROLLER_NAME));
 				}
 			}
-			
+
 			// in case we have a permalink based on %postname% only...
 			// query will be on e.g. /controller/method... controller and method don't exist as
 			// wp pages and the wp_query object will be set up as a 404

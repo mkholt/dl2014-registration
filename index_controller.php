@@ -37,12 +37,15 @@ class index_controller extends Controller
 			$nAges[$a['key']] = $a;
 		}
 		$json = json_encode($nAges);
+		$rate_count = reset($nAges);
+		$rate_count = count($rate_count['rate']['full']);
 		$url = self::get_url() ;
 
 		echo <<<END
 			<script type="text/javascript">
 				var page_url = '{$url}';
 				var ages = {$json};
+				var rate_count = {$rate_count};
 			</script>
 END;
 	}

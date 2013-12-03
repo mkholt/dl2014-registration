@@ -116,14 +116,14 @@ class Controller {
 
 	public function load_view($view)
 	{
-		$V = & $this->vars;
+		$vars = &$this->vars;
 		$post_content = '';
 		$view_filename = dirname(__FILE__).'/'.$view.'_view.php';
-		$post_content = $this->parse_view_file($view_filename, $V);
+		$post_content = $this->parse_view_file($view_filename, $vars);
 		if(!$post_content) {
 			// if the view data is a string, we'll just output it...
-			if( ! $view_file && is_string( $V ) ) {
-				$post_content .= $V;
+			if( ! $view_file && is_string($vars)) {
+				$post_content .= $vars;
 			}
 			else {	            
 				error("Can't find view file <pre>".$view_filename."</pre>\r\n", $suppress_esc=TRUE);

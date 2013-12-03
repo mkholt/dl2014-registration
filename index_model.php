@@ -48,13 +48,9 @@ class index_model {
 			$uId = get_current_user_id();
 		}
 
-		if ($uId == 0) return false;
-
-		if (empty($email))
-		{
-			return false;
-		}
-
+		if ($uId == 0) return -1;
+		if (empty($email) || filter_var($email, FILTER_VALIDATE_EMAIL) === false) return -2;
+		
 		wp_update_user(array(
 			'ID' => $uId,
 			'user_email' => $email

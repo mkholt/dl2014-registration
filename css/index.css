@@ -21,6 +21,10 @@
 	text-align: left;
 }
 
+#preregistration-update input.email.error {
+    box-shadow: 0px 0px 0px 1pt red;
+}
+
 #preregistration-update .totalhead, #preregistration-update .total {
 	text-align: right;
 	font-weight: bold;
