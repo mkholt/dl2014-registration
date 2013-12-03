@@ -17,7 +17,7 @@ if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 <h2>Vejledning</h2>
 <p>
 	For at udfylde forhåndstilmeldingen skal du blot udfylde de relevante felter herunder.<br/>
-	Når du har udfyldt felterne, trykker du på knappen "Gem forhåndstilmelding".<br/>
+	Når du har udfyldt felterne, trykker du på knappen "<b>Gem forhåndstilmelding</b>".<br/>
 </p>
 
 <p>
@@ -32,9 +32,9 @@ if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 		<li>Hele lejren</li>
 		<li>For de yngste</li>
 	</ol>
-	<b>Hele lejren</b> betyder at spejderen deltager i hele lejrugen (19-26. juli).<br/>
-	<b>For de yngste</b> betyder at spejderen deltager i den del af lejren som er målrettet de yngste deltagere (19-22. juli).<br/>
-	De yngste deltagere (0-3. kl.) kan selvfølgelig også deltage på hele lejren, der vil dog ikke være et målrettet program i resten af lejrugen.
+	<b>Hele lejren</b> betyder, at spejderen deltager i hele lejrugen (19-26. juli).<br/>
+	<b>For de yngste</b> betyder, at spejderen deltager i den del af lejren, som er målrettet de yngste deltagere (19-22. juli).<br/>
+	De yngste deltagere (<?= $ages[1]['title'] ?>) kan selvfølgelig også deltage på hele lejren. Der vil dog ikke være et målrettet program i resten af lejrugen.
 </p>
 
 <h3>Betaling</h3>
@@ -44,7 +44,8 @@ if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 	Du skal senest den <b><?= strftime("%#d. %B %Y", strtotime($rates[2])) ?></b> indbetale <span class="rate" data-rate="3"></span> til konto <b><?= $account ?></b>.<br/>
 	I alt skal du senest den <b><?= strftime("%#d. %B %Y", strtotime($rates[2])) ?></b> have indbetalt <span class="total"></span>.
 </p>
-
+<hr>
+<h2>Deltagere</h2>
 <form id="preregistration-update" data-userid="<?= $user->get('id') ?>">
 	<fieldset>
 		<p>For nemmere at kunne kontakte dig, skal vi bruge en e-mail adresse, indtast den venligst her:<br/>

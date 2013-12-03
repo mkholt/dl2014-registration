@@ -5,9 +5,8 @@
 if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 ?>
 <p>
-	Velkommen til forhåndstilmeldingen til Djurslejren 2014.<br/>
-	Da du ikke er logget ind, eller ikke er gruppe administrator,
-	bedes du logge ind med de login oplysninger, du har modtaget, herunder.
+	Velkommen til forhåndstilmeldingen for Djurslejren 2014.<br/>
+	Da du ikke er logget ind, bedes du logge ind med de login oplysninger, du har modtaget, herunder.
 </p>
 <?php if (!empty($error)) { ?>
 	<div class="message error"><?= $error ?></div>
