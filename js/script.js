@@ -45,7 +45,7 @@ var Registrations = (function($) {
 		{
 			var row = $(".totalhead").closest("tr");
 			var rates = $(".rate", row).length;
-			var totals = Array.apply(null, new Array(rates)).map(Number.prototype.valueOf, 0);
+			var totals = new Array(rates).join(0).split('');
 			var total = 0;
 
 			$("#preregistration-update tbody tr").each(function() {

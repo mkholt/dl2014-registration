@@ -47,9 +47,9 @@
 					if (k != agegroup)
 					{
 						// The age group wasn't selected to fit this age, ask if we want to change it
-						if (agegroup == "" || confirm("Vil du ændre aldersgruppen fra " + ages[agegroup].title + " til " + v.title + "?"))
+						if (agegroup == "" || confirm("Vil du ændre aldersgruppen fra " + ages[agegroup]['title'] + " til " + v['title'] + "?"))
 						{
-							lengthSelector.val(v.default);
+							lengthSelector.val(v['default']);
 							ageSelector.val(k).change();
 						}
 					}
@@ -102,7 +102,7 @@
 			}
 		});
 
-		$("#preregistration-update").on('submit', function()  {
+		$("#preregistration-update").on('submit', function(e)  {
 			$.blockUI();
 
 			var o = [];
@@ -125,7 +125,7 @@
 				$.unblockUI();
 			}, 'json');
 
-			return false;
+			e.preventDefault();
 		});
 	});
 })(jQuery);
