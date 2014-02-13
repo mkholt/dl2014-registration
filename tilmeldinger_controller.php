@@ -1,8 +1,11 @@
 <?php
 class tilmeldinger_controller extends Controller {
+	private $_isOpen;
+
 	public function __construct()
 	{
 		setlocale(LC_ALL, "da_DK");
+		$this->_isOpen = (time() < 1392505200 || $this->is_admin());
 
 		// Register style sheet and scripts
 		require_once("index_controller.php");
@@ -18,7 +21,8 @@ class tilmeldinger_controller extends Controller {
 
 	public function registerHead()
 	{
-		wp_register_script('prereg-script', self::get_plugin_url() . 'js/prereg.js');
+		$file = ($this->_isOpen) ? 'js/prereg.js' : 'js/prereg_closed.js';
+		wp_register_script('prereg-script', self::get_plugin_url() . $file);
 		wp_enqueue_script('prereg-script');
 	}
 
@@ -40,6 +44,8 @@ class tilmeldinger_controller extends Controller {
 		require_once('index_model.php');
 		$im = new index_model();
 
+		$view = ($this->_isOpen) ? 'register' : 'registered';
+
 		$userId = $this->get_user_id(false);
 		$user = get_user_by('id', $userId);
 		$admin = ($this->is_admin()) ? wp_get_current_user() : null;
@@ -49,7 +55,7 @@ class tilmeldinger_controller extends Controller {
 		$this->add_var('ages'			, RegistrationConfig::$ages);
 		$this->add_var('user'			, $user);
 		$this->add_var('registrations'	, $im->get_pre_registration($userId));
-		$this->set_post_content($this->load_view('register'));
+		$this->set_post_content($this->load_view($view));
 	}
 
 	private function get_user_id($json = true)
@@ -102,7 +108,9 @@ class tilmeldinger_controller extends Controller {
 		$im = new index_model();
 
 		$userId = $this->get_user_id();
-		$status = $im->set_pre_registration($_POST['registrations'], $_POST['email'], $userId);
+		$status = (isset($_POST['registrations'])) ?
+			$im->set_pre_registration($_POST['registrations'], $_POST['email'], $userId) :
+			$im->set_email($_POST['email'], $userId);
 		$this->send_json(array(
 			"status" => $status,
 			"message" => ($status === true) ? "Din forhåndstilmelding blev opdateret." : "Der skete en fejl, prøv venligst igen.",

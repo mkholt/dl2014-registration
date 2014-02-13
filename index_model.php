@@ -49,14 +49,27 @@ class index_model {
 		}
 
 		if ($uId == 0) return -1;
-		if (empty($email) || filter_var($email, FILTER_VALIDATE_EMAIL) === false) return -2;
-		
-		wp_update_user(array(
-			'ID' => $uId,
-			'user_email' => $email
-		));
+
+		$eStatus = $this->set_email($email, $uId);
+		if (!$eStatus) return -2;
+
 		update_user_meta($uId, self::META_FIELD, $data);
 		return (get_user_meta($uId, self::META_FIELD, true) == $data);
+	}
+
+	public function set_email($email, $uId = null)
+	{
+		if (empty($uId))
+		{
+			$uId = get_current_user_id();
+		}
+
+		if (empty($email) || filter_var($email, FILTER_VALIDATE_EMAIL) === false) return false;
+		
+		return wp_update_user(array(
+			'ID' => $uId,
+			'user_email' => $email
+		)) == $uId;
 	}
 
 	public function add_user($name, $email, $org, $pass, $rPass)
