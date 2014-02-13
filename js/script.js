@@ -45,14 +45,14 @@ var Registrations = (function($) {
 		{
 			var row = $(".totalhead").closest("tr");
 			var rates = $(".rate", row).length;
-			var totals = new Array(rates).join(0).split('');
+			var totals = [];
 			var total = 0;
 
 			$("#preregistration-update tbody tr").each(function() {
 				total += $(".price", this).data('price');
 				for (var i = 0; i < rates; i++)
 				{
-					totals[i] += $(".rate[data-rate=" + (i+1) + "]", this).data('price');
+					totals[i] = (totals[i] || 0) + $(".rate[data-rate=" + (i+1) + "]", this).data('price');
 				}
 			});
 
