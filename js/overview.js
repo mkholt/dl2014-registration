@@ -51,6 +51,19 @@
 			$.fancybox.close();
 		});
 
+		$("#preregistration-overview #hide-wrapper").on('click', '.hide', function() {
+			if ($(this).data('hidden'))
+			{
+				$("#preregistration-overview .empty").show();
+				$(this).data('hidden', false).val('Skjul grupper').attr('title', 'Skjul grupper uden tilmeldinger');
+			}
+			else
+			{
+				$("#preregistration-overview .empty").hide();
+				$(this).data('hidden', true).val('Vis grupper').attr('title', 'Vis grupper uden tilmeldinger');
+			}
+		})
+
 		$("body").on('submit', '.editDialog.add form, .editDialog.edit form, .editDialog.delete form', function() {
 			$.blockUI();
 

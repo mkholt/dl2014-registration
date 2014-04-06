@@ -46,7 +46,7 @@ if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 			foreach ($registrations as $uId => $group)
 			{
 			?>
-				<tr class="groupRow"
+				<tr class="groupRow <?= (empty($group['registrations'])) ? 'empty' : '' ?>"
 					data-group="<?= $group['user']->get('ID') ?>"
 					data-login="<?= $group['user']->get('user_login') ?>"
 					data-name="<?= $group['user']->get('first_name') ?>"
@@ -118,6 +118,9 @@ if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 
 		<div id="add-wrapper">
 			<input type="button" value="Tilføj gruppe" class="add" />
+		</div>
+		<div id="hide-wrapper">
+			<input type="button" value="Skjul grupper" class="hide" title="Skjul grupper uden tilmeldinger" />
 		</div>
 	</fieldset>
 </form>
