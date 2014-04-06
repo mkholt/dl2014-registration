@@ -1,37 +1,37 @@
-#preregistration-update tr.new .remove {
+#registration-update tr.new .remove {
 	visibility: hidden;
 }
 
-#preregistration-update table {
+#registration-update table {
 	/*width: auto !important;*/
 }
 
-#preregistration-update input[type=text] {
+#registration-update input[type=text] {
 	width: 5em;
 	text-align: right;
 }
 
-#preregistration-update input.name {
+#registration-update input.name {
 	width: 10em;
 	text-align: left;
 }
 
-#preregistration-update input.email {
+#registration-update input.email {
 	width: 20em;
 	text-align: left;
 }
 
-#preregistration-update input.email.error {
+#registration-update input.email.error {
     box-shadow: 0px 0px 0px 1pt red;
 }
 
-#preregistration-update .totalhead, #preregistration-update .total {
+#registration-update .totalhead, #registration-update .total {
 	text-align: right;
 	font-weight: bold;
 }
 
-#preregistration-update td.price,
-#preregistration-update td.rate {
+#registration-update td.price,
+#registration-update td.rate {
 	text-align: right;
 }
 
@@ -39,53 +39,53 @@ span.rate, span.total {
 	font-weight: bold;
 }
 
-#preregistration-overview th,
-#preregistration-update th {
+#registration-overview th,
+#registration-update th {
 	text-align: center;
 }
 
-#preregistration-overview td.count,
-#preregistration-overview th.count,
-#preregistration-overview td.days,
-#preregistration-overview th.days {
+#registration-overview td.count,
+#registration-overview th.count,
+#registration-overview td.days,
+#registration-overview th.days {
 	border-left: 1px solid #ededed;
 }
 
-#preregistration-overview td.count span {
+#registration-overview td.count span {
 	cursor: pointer;
 }
 
-#preregistration-overview td.days, tfoot td {
+#registration-overview td.days, tfoot td {
 	font-weight: bold;
 }
 
-#preregistration-overview tfoot td {
+#registration-overview tfoot td {
 	border-style: solid none solid solid;
 	border-width: 1px;
 	border-color: #000 #EDEDED;
 }
 
-#preregistration-overview tfoot td:first-child {
+#registration-overview tfoot td:first-child {
 	text-align: right;
 }
 
-#preregistration-overview td {
+#registration-overview td {
 	text-align: center;
 }
 
-#preregistration-overview td.group, #preregistration-overview th.group {
+#registration-overview td.group, #registration-overview th.group {
 	text-align: left;
 }
 
-#preregistration-overview tr:nth-child(odd) td {
+#registration-overview tr:nth-child(odd) td {
 	background: #FAFAFA;
 }
 
-#preregistration-overview td {
+#registration-overview td {
 	position: relative;
 }
 
-#preregistration-overview input[type=text], #preregistration-overview select {
+#registration-overview input[type=text], #registration-overview select {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -100,11 +100,11 @@ span.rate, span.total {
 	display: none;
 }
 
-#preregistration-overview .groupRow.new {
+#registration-overview .groupRow.new {
 	display: none;
 }
 
-#preregistration-overview .editWrapper {
+#registration-overview .editWrapper {
 	display: none;
 	position: absolute;
 	top: 0;
@@ -113,7 +113,7 @@ span.rate, span.total {
 	width: 170px;
 }
 
-#preregistration-overview .editWrapper span {
+#registration-overview .editWrapper span {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -128,7 +128,7 @@ span.rate, span.total {
 	background: #FFF;
 }
 
-#preregistration-overview #add-wrapper, #preregistration-overview #reset-wrapper {
+#registration-overview #add-wrapper, #registration-overview #reset-wrapper {
 	float: left;
 }
 

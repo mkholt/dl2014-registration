@@ -1,12 +1,12 @@
 (function($) {
 	$(function() {
-		$("#preregistration-overview td.group").hover(function() {
+		$("#registration-overview td.group").hover(function() {
 			$(".editWrapper", $(this)).show();
 		}, function() {
 			$(".editWrapper", $(this)).hide();
 		});
 
-		$("#preregistration-overview, #preregistration-overview #add-wrapper").on('click', '.editWrapper .edit, .editWrapper .delete, .add', function() {
+		$("#registration-overview, #registration-overview #add-wrapper").on('click', '.editWrapper .edit, .editWrapper .delete, .add', function() {
 			if ($(this).hasClass('edit'))
 			{
 				var e = $(".editDialog.edit").clone();
@@ -51,15 +51,15 @@
 			$.fancybox.close();
 		});
 
-		$("#preregistration-overview #hide-wrapper").on('click', '.hide', function() {
+		$("#registration-overview #hide-wrapper").on('click', '.hide', function() {
 			if ($(this).data('hidden'))
 			{
-				$("#preregistration-overview .empty").show();
+				$("#registration-overview .empty").show();
 				$(this).data('hidden', false).val('Skjul grupper').attr('title', 'Skjul grupper uden tilmeldinger');
 			}
 			else
 			{
-				$("#preregistration-overview .empty").hide();
+				$("#registration-overview .empty").hide();
 				$(this).data('hidden', true).val('Vis grupper').attr('title', 'Vis grupper uden tilmeldinger');
 			}
 		})
@@ -118,7 +118,7 @@
 						$("a.registrations", r).attr('href', page_url + '/tilmeldinger/' + data.data['id']);
 						$(".group .name", r).text(data.data['display_name']);
 
-						r.insertBefore($("#preregistration-overview tbody .new"));
+						r.insertBefore($("#registration-overview tbody .new"));
 
 						$("td.group", r).hover(function() {
 							$(".editWrapper", $(this)).show();

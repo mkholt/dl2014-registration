@@ -5,7 +5,7 @@
 if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 ?>
 <p>
-	Velkommen til forhåndstilmeldingen til Djurslejren 2014.<br/>
+	Velkommen til tilmeldingen til Djurslejren 2014.<br/>
 	<?php if (empty($admin)) { ?>
 		Du er logget på som: <strong><?= $user->get('display_name') ?></strong>. <?php wp_loginout('/'.REGISTRATION_PAGE_CONTROLLER_NAME); ?>
 	<?php } else { ?>
@@ -16,12 +16,12 @@ if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 
 <h2>Vejledning</h2>
 <p>
-	For at udfylde forhåndstilmeldingen skal du blot udfylde de relevante felter herunder.<br/>
-	Når du har udfyldt felterne, trykker du på knappen "<b>Gem forhåndstilmelding</b>".<br/>
+	For at udfylde tilmeldingen skal du blot udfylde de relevante felter herunder.<br/>
+	Når du har udfyldt felterne, trykker du på knappen "<b>Gem tilmelding</b>".<br/>
 </p>
 
 <p>
-	Du kan, indtil forhåndstilmeldingen lukker, altid komme tilbage og rette i oplysningerne.
+	Du kan, indtil tilmeldingen lukker, altid komme tilbage og rette i oplysningerne.
 </p>
 
 <h3>Lejrens længde</h3>
@@ -46,7 +46,7 @@ if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 </p>
 <hr>
 <h2>Deltagere</h2>
-<form id="preregistration-update" data-userid="<?= $user->get('id') ?>">
+<form id="registration-update" data-userid="<?= $user->get('id') ?>">
 	<fieldset>
 		<p>For nemmere at kunne kontakte dig, skal vi bruge en e-mail adresse, indtast den venligst her:<br/>
 			<label for="email">E-mail:</label> <input type="text" name="email" id="email" value="<?= $user->get('user_email') ?>" class="email" />
@@ -169,6 +169,6 @@ if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 			</tfoot>
 		</table>
 		<span class="message"></span>
-		<input type="submit" value="Gem forhåndstilmelding" />
+		<input type="submit" value="Gem tilmelding" />
 	</fieldset>
 </form>

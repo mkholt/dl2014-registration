@@ -21,9 +21,9 @@ class tilmeldinger_controller extends Controller {
 
 	public function registerHead()
 	{
-		$file = ($this->_isOpen) ? 'js/prereg.js' : 'js/prereg_closed.js';
-		wp_register_script('prereg-script', self::get_plugin_url() . $file);
-		wp_enqueue_script('prereg-script');
+		$file = ($this->_isOpen) ? 'js/registration.js' : 'js/registration_closed.js';
+		wp_register_script('registration-script', self::get_plugin_url() . $file);
+		wp_enqueue_script('registration-script');
 	}
 
 	public function admin_bar()
@@ -33,7 +33,7 @@ class tilmeldinger_controller extends Controller {
 
 	public function index()
 	{
-		$this->set_post_title('Forhåndstilmelding');
+		$this->set_post_title('Tilmelding');
 
 		if (!$this->has_access())
 		{
@@ -113,7 +113,7 @@ class tilmeldinger_controller extends Controller {
 			$im->set_email($_POST['email'], $userId);
 		$this->send_json(array(
 			"status" => $status,
-			"message" => ($status === true) ? "Din forhåndstilmelding blev opdateret." : "Der skete en fejl, prøv venligst igen.",
+			"message" => ($status === true) ? "Din tilmelding blev opdateret." : "Der skete en fejl, prøv venligst igen.",
 		));
 	}
 }

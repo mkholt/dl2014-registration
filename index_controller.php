@@ -51,7 +51,7 @@ END;
 	}
 
 	public function index() {
-		$this->set_post_title('Forhåndstilmelding');
+		$this->set_post_title('Tilmelding');
 
 		$loggedIn = (is_user_logged_in() && (appthemes_check_user_role('group_admin') || appthemes_check_user_role('administrator') || appthemes_check_user_role('editor')));
 		if (!$loggedIn)

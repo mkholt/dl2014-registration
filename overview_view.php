@@ -5,16 +5,16 @@
 if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 ?>
 <p>
-	Velkommen til oversigten over forhåndstilmeldingen til Djurslejren 2014.<br/>
+	Velkommen til oversigten over tilmeldingen til Djurslejren 2014.<br/>
 	Du er logget på som: <strong><?= $user->get('display_name') ?></strong>. <?php wp_loginout('/'.REGISTRATION_PAGE_CONTROLLER_NAME); ?>
 </p>
 
 <p>
-	Herunder kan du se, hvilke forhåndstilmeldinger der er foretaget.<br/>
-	Du kan rette i en forhåndstilmelding ved at klikke på det relevante felt.
+	Herunder kan du se, hvilke tilmeldinger der er foretaget.<br/>
+	Du kan rette i en tilmelding ved at klikke på det relevante felt.
 </p>
 <span class="message"></span>
-<form id="preregistration-overview">
+<form id="registration-overview">
 	<fieldset>
 		<table>
 			<thead>

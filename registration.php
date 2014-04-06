@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: DL2014 Registrations
- * Version: 1.0
+ * Version: 1.1
  * Author: Morten Holt (thawk@t-hawk.com)
  * License: GPL2
  */
@@ -26,6 +26,8 @@ require_once('config.php');
 require_once('controller.php');
 
 class Registration {
+	protected $_pages = null;
+
 	public function __construct()
 	{
 		add_filter( 'parse_query', array($this,'wp_query_checker') );
@@ -41,6 +43,20 @@ class Registration {
 		require_once(dirname(__FILE__).'/backend/app_install_remove.php');
 		$ir = new AppInstallRemove();
 		$ir->install();
+	}
+
+	protected function getPages()
+	{
+	  if (empty($this->_pages)) {		
+		$pages = array();
+		foreach (RegistrationConfig::$pages as $page) {
+		  $pages[$page['page_name']] = $page;
+		}
+
+		$this->_pages = $pages;
+	  }
+
+	  return $this->_pages;
 	}
 
 	/**
@@ -63,12 +79,8 @@ class Registration {
 		 */
 		global $registration_page_request_active;
 
-		$pages = array();
-		foreach (RegistrationConfig::$pages as $page)
-		{
-			$pages[$page['page_name']] = $page;
-		}
-		
+		$pages = $this->getPages();
+
 		if(isset($_SERVER['REQUEST_URI']))
 		{
 			/**
@@ -156,6 +168,21 @@ class Registration {
 		
 		if ($registration_page_request_active)
 		{
+			$rawRequest = $wp_query->get('registration_request');
+			$request = str_replace('-', '_', $rawRequest);
+			$request = explode('/', $request);
+
+			// Check if this is a simple redirect
+			$pages = $this->getPages();
+			if (empty($request[0]) || empty($pages[$request[0]])) {
+				error("Ugyldig henvendelse");
+			}
+			$page = $pages[$request[0]];
+			if (!empty($page['redirect'])) {
+			  header("Location: {$page['redirect']}/".implode('/', array_splice($request, 1)));
+			  exit;
+			}
+		  
 			/**
 			 * Prevent WP from "cleaning-up" views
 			 */
@@ -181,10 +208,6 @@ class Registration {
 			// wp pages and the wp_query object will be set up as a 404
 			$wp_query->query_vars['error'] = FALSE;
 			$wp_query->is_404 = FALSE;
-
-			$rawRequest = $wp_query->get('registration_request');
-			$request = str_replace('-', '_', $rawRequest);
-			$request = explode('/', $request);
 
 			if (! $page = $request[0])
 			{

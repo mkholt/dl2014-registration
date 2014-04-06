@@ -31,7 +31,7 @@ class logon_controller extends Controller {
 			$this->add_var("error", __('Incorrect username or password.'));
 		}
 		
-		$this->set_post_title('Forhåndstilmelding');
+		$this->set_post_title('Tilmelding');
 		$this->set_post_content( $this->load_view('login'));
 		return false;
 	}

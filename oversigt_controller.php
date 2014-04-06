@@ -21,7 +21,7 @@ class oversigt_controller extends Controller {
 
 	public function index()
 	{		
-		$this->set_post_title('Forhåndstilmelding');
+		$this->set_post_title('Tilmelding');
 
 		if (!$this->has_access())
 		{

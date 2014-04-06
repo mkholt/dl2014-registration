@@ -48,7 +48,7 @@ var Registrations = (function($) {
 			var totals = [];
 			var total = 0;
 
-			$("#preregistration-update tbody tr").each(function() {
+			$("#registration-update tbody tr").each(function() {
 				total += $(".price", this).data('price');
 				for (var i = 0; i < rates; i++)
 				{

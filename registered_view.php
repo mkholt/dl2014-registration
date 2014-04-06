@@ -5,7 +5,7 @@
 if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 ?>
 <p>
-	Velkommen til forhåndstilmeldingen til Djurslejren 2014.<br/>
+	Velkommen til tilmeldingen til Djurslejren 2014.<br/>
 	<?php if (empty($admin)) { ?>
 		Du er logget på som: <strong><?= $user->get('display_name') ?></strong>. <?php wp_loginout('/'.REGISTRATION_PAGE_CONTROLLER_NAME); ?>
 	<?php } else { ?>
@@ -16,7 +16,7 @@ if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 
 <p>
 	Forhåndtilmeldingen er lukket. Du kan dog herunder se dine tilmeldinger.<br/>
-	Hvis du har væsentlige ændringer til din forhåndstilmelding, bedes du kontakte lejrledelsen på <a href="mailto:info@djurslejren.dk">info@djurslejren.dk</a>.
+	Hvis du har væsentlige ændringer til din tilmelding, bedes du kontakte lejrledelsen på <a href="mailto:info@djurslejren.dk">info@djurslejren.dk</a>.
 </p>
 
 <h3>Betaling</h3>
@@ -45,7 +45,7 @@ if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 </p>
 <hr>
 <h2>Deltagere</h2>
-<form id="preregistration-update" data-userid="<?= $user->get('id') ?>">
+<form id="registration-update" data-userid="<?= $user->get('id') ?>">
 	<fieldset>
 		<p>For nemmere at kunne kontakte dig, skal vi bruge en e-mail adresse, indtast den venligst her:<br/>
 			<label for="email">E-mail:</label> <input type="text" name="email" id="email" value="<?= $user->get('user_email') ?>" class="email" />
@@ -109,7 +109,7 @@ if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 		?>
 		<tr>
 			<td colspan="9">
-				<em>Du har ingen forhåndstilmeldinger</em>
+				<em>Du har ingen tilmeldinger</em>
 			</td>
 		</tr>
 		<?php

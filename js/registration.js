@@ -7,10 +7,10 @@
 			yearRange: "-100:+0"
 		};
 
-		$("#preregistration-update .birthdate").datepicker(dpSettings);
+		$("#registration-update .birthdate").datepicker(dpSettings);
 		
-		$("#preregistration-update").on('change', '.new', function() {
-			var oldNewRow = $("#preregistration-update .new");
+		$("#registration-update").on('change', '.new', function() {
+			var oldNewRow = $("#registration-update .new");
 			var newRow = oldNewRow.clone();
 			oldNewRow.removeClass("new");
 
@@ -23,7 +23,7 @@
 			changeAge.apply($(".age", newRow));
 		});
 
-		$("#preregistration-update").on('change', '.birthdate', function() {
+		$("#registration-update").on('change', '.birthdate', function() {
 			var bd = moment($(this).val(), "DD/MM-YYYY");
 
 			// Get age as of "today"
@@ -87,9 +87,9 @@
 			Registrations.calculateTotals();
 		};
 
-		$("#preregistration-update").on('change', '.length, .age', changeAge);
+		$("#registration-update").on('change', '.length, .age', changeAge);
 
-		$("#preregistration-update").on('click', '.remove', function() {
+		$("#registration-update").on('click', '.remove', function() {
 			var row = $(this).closest('tr');
 			if (row.hasClass('new')) return false;
 
@@ -102,7 +102,7 @@
 			}
 		});
 
-		$("#preregistration-update").on('submit', function(e)  {
+		$("#registration-update").on('submit', function(e)  {
 			$.blockUI();
 
 			var o = [];
@@ -118,7 +118,7 @@
 
 			$("span.message").removeClass("success").removeClass("error").text("");
 			$("#email").removeClass('error');
-			$.post(page_url + "/tilmeldinger/save/" + $(this).data('userid'), {'registrations': o, 'email': $("#preregistration-update .email").val()}, function(data) {
+			$.post(page_url + "/tilmeldinger/save/" + $(this).data('userid'), {'registrations': o, 'email': $("#registration-update .email").val()}, function(data) {
 				$("span.message").addClass(data.status === true ? "success" : "error").text(data.message);
 				if (data.status == -2) $("#email").addClass('error');
 				Registrations.calculateTotals();
