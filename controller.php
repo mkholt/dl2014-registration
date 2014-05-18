@@ -117,12 +117,11 @@ class Controller {
 	public function load_view($view)
 	{
 		$vars = &$this->vars;
-		$post_content = '';
-		$view_filename = dirname(__FILE__).'/'.$view.'_view.php';
+		$view_filename = dirname(__FILE__).'/views/'.$view.'.php';
 		$post_content = $this->parse_view_file($view_filename, $vars);
 		if(!$post_content) {
 			// if the view data is a string, we'll just output it...
-			if( ! $view_file && is_string($vars)) {
+			if( ! $view_filename && is_string($vars)) {
 				$post_content .= $vars;
 			}
 			else {	            
