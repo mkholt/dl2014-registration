@@ -13,3 +13,4 @@ wp-content/backups/
 sitemap.xml.gz
 backend/users.csv
 config.php
+.idea/

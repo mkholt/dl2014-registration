@@ -2,15 +2,23 @@
 class RegistrationConfig
 {
 	public static $pages = array(
-		array(
-			'page_title'=>'Forhåndstilmelding',
-			'page_name'=>'forhaandstilmelding',
-			'page_status'=>'published',
-			'page_password'=>'xxxxxxxx'
-		)
-	);
-	public static $rates = array("2014-02-14", "2014-03-16", "2014-06-15");
-	public static $account = "xxxx xxxxxxx";
+								 array(
+									   'page_title' => 'Tilmelding',
+									   'page_name' => 'tilmelding',
+									   'page_status' => 'private',
+									   'page_password' => ''
+									   ),
+								 array(
+									   'page_title' => 'Forhåndstilmelding',
+									   'page_name' => 'forhaandstilmelding',
+									   'page_status' => 'public',
+									   'page_password' => '',
+									   'redirect' => '/tilmelding'
+									   )
+								 );
+
+	public static $rates = array("2014-02-14", "2014-05-01", "2014-07-01");
+	public static $account = "7261 1126482";
 
 	public static $ages = array(
 		array(
