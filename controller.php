@@ -1,11 +1,13 @@
 <?php
-class Controller {
+abstract class Controller {
 	protected $postTitle;
 	protected $postContent;
 	protected $vars = array();
 	protected $request;
 	protected $raw_request;
 	protected $page;
+
+    public abstract function index();
 
 	protected function has_access()
 	{

@@ -38,7 +38,7 @@ class oversigt_controller extends Controller {
 			require_once('index_model.php');
 			$im = new index_model();
 
-			$registrations = $im->get_pre_registration(get_users(array('role' => 'group_admin')));
+			$registrations = $im->get_registration(get_users(array('role' => 'group_admin')));
 
 			$this->add_var('ages'			, RegistrationConfig::$ages);
 			$this->add_var('user'			, wp_get_current_user());

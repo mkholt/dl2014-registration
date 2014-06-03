@@ -1,6 +1,7 @@
 <?php
 class index_model {
-	const META_FIELD = 'preregistrations';
+    const META_FIELD = 'preregistrations';
+	const META_FINAL_FIELD = 'registrations_final';
 
 	public function __construct()
 	{
@@ -10,36 +11,86 @@ class index_model {
 		}
 	}
 
-	public function get_pre_registration($uId = null)
-	{
-		if (empty($uId))
-		{
-			$uId = get_current_user_id();
-		}
+    public function get_age_key($age)
+    {
+        return strtolower(preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(" ", '-', $age['title'])));
+    }
 
-		if ($uId == 0) return false;
+    /**
+     * @param int|null $uId
+     * @return array|bool|mixed
+     */
+    public function get_registration($uId = null)
+    {
+        if (empty($uId))
+        {
+            $uId = get_current_user_id();
+        }
 
-		$ret = array();
+        if ($uId == 0) return false;
 
-		if (is_array($uId))
-		{
-			foreach ($uId as $user)
-			{
-				$ret[$user->ID] = array('registrations' => $this->get_pre_registration($user->ID), 'user' => $user);
-			}
-		}
-		else
-		{
-			$ret = get_user_meta($uId, self::META_FIELD, true);
-		}
+        $ret = array();
+        if (is_array($uId))
+        {
+            foreach ($uId as $user)
+            {
+                $ret[$user->ID] = array('final' => $this->get_finalized_status($user->ID), 'registrations' => $this->get_registration($user->ID), 'user' => $user);
+            }
+        }
+        else
+        {
+            $ret = get_user_meta($uId, self::META_FIELD, true);
+        }
 
-		return $ret;
-	}
+        return $ret;
+    }
 
-	public function get_age_key($age)
-	{
-		return strtolower(preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(" ", '-', $age['title'])));
-	}
+    public function finalize_registration($uId = null)
+    {
+        if (empty($uId))
+        {
+            $uId = get_current_user_id();
+        }
+
+        if ($uId == 0) return false;
+
+        $date = new DateTime();
+        $data = array(
+            'final' => true,
+            'time' => $date
+        );
+        update_user_meta($uId, self::META_FINAL_FIELD, $data);
+
+        return (get_user_meta($uId, self::META_FINAL_FIELD, true) == $data);
+    }
+
+    public function unfinalize_registration($uId = null)
+    {
+        if (empty($uId))
+        {
+            $uId = get_current_user_id();
+        }
+
+        if ($uId == 0) return false;
+
+        delete_user_meta($uId, self::META_FINAL_FIELD);
+
+        return (get_user_meta($uId, self::META_FINAL_FIELD, true) == null);
+    }
+
+    public function get_finalized_status($uId = null)
+    {
+        if (empty($uId))
+        {
+            $uId = get_current_user_id();
+        }
+
+        if ($uId == 0) return false;
+
+        $ret = get_user_meta($uId, self::META_FINAL_FIELD, true);
+
+        return $ret;
+    }
 
 	public function set_pre_registration($data, $email, $uId = null)
 	{
@@ -53,8 +104,8 @@ class index_model {
 		$eStatus = $this->set_email($email, $uId);
 		if (!$eStatus) return -2;
 
-		update_user_meta($uId, self::META_FIELD, $data);
-		return (get_user_meta($uId, self::META_FIELD, true) == $data);
+		update_user_meta($uId, self::META_PRE_FIELD, $data);
+		return (get_user_meta($uId, self::META_PRE_FIELD, true) == $data);
 	}
 
 	public function set_email($email, $uId = null)
@@ -72,7 +123,7 @@ class index_model {
 		)) == $uId;
 	}
 
-	public function add_user($name, $email, $org, $pass, $rPass)
+    public function add_user($name, $email, $org, $pass, $rPass)
 	{
 		if (empty($name))
 		{

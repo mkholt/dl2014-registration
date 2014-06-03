@@ -22,9 +22,10 @@ class tilmeldinger_controller extends Controller {
 	public function registerHead()
 	{
 		$file = ($this->_isOpen) ? 'js/registration.js' : 'js/registration_closed.js';
-		wp_register_script('registration-script', self::get_plugin_url() . $file);
-		wp_enqueue_script('registration-script');
-	}
+
+		wp_register_script('registrations-script', self::get_plugin_url() . $file);
+        wp_enqueue_script('registrations-script');
+    }
 
 	public function admin_bar()
 	{
@@ -41,26 +42,26 @@ class tilmeldinger_controller extends Controller {
 			exit;
 		}
 
-		require_once('index_model.php');
-		$im = new index_model();
-
 		$view = ($this->_isOpen) ? 'register' : 'registered';
 
 		$userId = $this->get_user_id(false);
 		$user = get_user_by('id', $userId);
+        require_once('index_model.php');
+        $im = new index_model();
+
 		$admin = ($this->is_admin()) ? wp_get_current_user() : null;
 		$this->add_var('admin'			, $admin);
 		$this->add_var('rates'			, RegistrationConfig::$rates);
 		$this->add_var('account'		, RegistrationConfig::$account);
 		$this->add_var('ages'			, RegistrationConfig::$ages);
 		$this->add_var('user'			, $user);
-		$this->add_var('registrations'	, $im->get_pre_registration($userId));
+		$this->add_var('registrations'	, $im->get_registration($userId));
+        $this->add_var('final'          , $im->get_finalized_status($userId));
 		$this->set_post_content($this->load_view($view));
 	}
 
 	private function get_user_id($json = true)
 	{
-		$userId = 0;
 		if ($this->is_admin())
 		{
 			if (empty($this->request) || (int)$this->request[0] <= 0)
@@ -116,5 +117,69 @@ class tilmeldinger_controller extends Controller {
 			"message" => ($status === true) ? "Din tilmelding blev opdateret." : "Der skete en fejl, prøv venligst igen.",
 		));
 	}
+
+    public function finalize()
+    {
+        if (!$this->has_access())
+        {
+            $this->send_json(array(
+                "status" => false,
+                "message" => "Adgang nægtet"
+            ));
+        }
+
+        require_once('index_model.php');
+        $im = new index_model();
+
+        $status = $im->finalize_registration($this->get_user_id());
+        $this->send_json(array(
+            "status" => $status,
+            "message" => ($status === true) ? "Din tilmelding blev afsluttet." : "Der skete en fejl, prøv venligst igen.",
+        ));
+    }
+
+    public function unfinalize()
+    {
+        if (!$this->has_access() || !$this->is_admin())
+        {
+            $this->send_json(array(
+                "status" => false,
+                "message" => "Adgang nægtet"
+            ));
+        }
+
+        require_once('index_model.php');
+        $im = new index_model();
+
+        $status = $im->unfinalize_registration($this->get_user_id());
+        $this->send_json(array(
+            "status" => $status,
+            "message" => ($status === true) ? "Tilmeldingen blev genåbnet." : "Der skete en fejl, prøv venligst igen.",
+        ));
+    }
+
+    public function table()
+    {
+        if (!$this->has_access())
+        {
+            exit;
+        }
+
+        $uId = $this->get_user_id(false);
+
+        require_once('index_model.php');
+        $im = new index_model();
+        $admin = ($this->is_admin()) ? wp_get_current_user() : null;
+        $this->add_var('admin'			, $admin);
+        $this->add_var('rates'			, RegistrationConfig::$rates);
+        $this->add_var('account'		, RegistrationConfig::$account);
+        $this->add_var('ages'			, RegistrationConfig::$ages);
+        $this->add_var('registrations'	, $im->get_registration($uId));
+        $this->add_var('final'          , $im->get_finalized_status($uId));
+
+        header("HTTP/1.1 200 OK");
+        echo $this->load_view("register_table");
+        exit;
+    }
 }
 ?>

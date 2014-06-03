@@ -31,7 +31,8 @@ if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 							<?php } ?>
 						</th>
 					<?php } ?>
-					<th>I alt</th>
+                    <th>I alt</th>
+                    <th>Afsluttet</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -78,6 +79,7 @@ if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 						<?php }
 					?>
 					<td class="total"><?= $total ?></td>
+                    <td><?= (!empty($group['final']) && $group['final']['final']) ? $group['final']['time']->format('d/m-Y H:i') : '-'?></td>
 				</tr>
 		<?php
 			}
@@ -112,6 +114,7 @@ if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 					}
 					?>
 					<td class="total"></td>
+                    <td></td>
 				</tr>
 			</tfoot>
 		</table>

@@ -36,6 +36,9 @@ class Registration {
 		if (is_admin()) {
 			register_activation_hook(__FILE__, array($this, 'plugin_install'));
 		}
+
+        // Set up the timezone
+        date_default_timezone_set('Europe/Copenhagen');
 	}
 
 	public function plugin_install($upgrading = FALSE)
