@@ -104,8 +104,8 @@ class index_model {
 		$eStatus = $this->set_email($email, $uId);
 		if (!$eStatus) return -2;
 
-		update_user_meta($uId, self::META_PRE_FIELD, $data);
-		return (get_user_meta($uId, self::META_PRE_FIELD, true) == $data);
+		update_user_meta($uId, self::META_FIELD, $data);
+		return (get_user_meta($uId, self::META_FIELD, true) == $data);
 	}
 
 	public function set_email($email, $uId = null)
