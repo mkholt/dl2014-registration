@@ -5,7 +5,7 @@ class tilmeldinger_controller extends Controller {
 	public function __construct()
 	{
 		setlocale(LC_ALL, "da_DK");
-		$this->_isOpen = (time() < 1392505200 || $this->is_admin());
+		$this->_isOpen = (time() <= strtotime('2014-12-31') || $this->is_admin());
 
 		// Register style sheet and scripts
 		require_once("index_controller.php");
@@ -57,6 +57,7 @@ class tilmeldinger_controller extends Controller {
 		$this->add_var('user'			, $user);
 		$this->add_var('registrations'	, $im->get_registration($userId));
         $this->add_var('final'          , $im->get_finalized_status($userId));
+        $this->add_var('race'           , $im->get_race_amount($userId));
 		$this->set_post_content($this->load_view($view));
 	}
 
@@ -110,7 +111,7 @@ class tilmeldinger_controller extends Controller {
 
 		$userId = $this->get_user_id();
 		$status = (isset($_POST['registrations'])) ?
-			$im->set_pre_registration($_POST['registrations'], $_POST['email'], $userId) :
+			$im->set_pre_registration($_POST['registrations'], $_POST['email'], $_POST['race'], $userId) :
 			$im->set_email($_POST['email'], $userId);
 		$this->send_json(array(
 			"status" => $status,

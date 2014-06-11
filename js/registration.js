@@ -139,11 +139,23 @@
                     });
                 });
 
+                var $form = $("#registration-update");
+
+                var obj = {
+                    'registrations': o,
+                    'email': $(".email", $form).val(),
+                    'race': {
+                        'evening': parseInt($(".evening", $form).val() || 0, 10),
+                        'night': parseInt($(".night", $form).val() || 0, 10)
+                    }
+                };
+
                 $("span.message").removeClass("success").removeClass("error").text("");
                 $("#email").removeClass('error');
-                $.post(page_url + "/tilmeldinger/save/" + $(this).data('userid'), {'registrations': o, 'email': $("#registration-update .email").val()}, function(data) {
+                $.post(page_url + "/tilmeldinger/save/" + $(this).data('userid'), obj, function(data) {
                     $("span.message").addClass(data.status === true ? "success" : "error").text(data.message);
-                    if (data.status == -2) $("#email").addClass('error');
+                    if (data.status == -2) $("#email", $form).addClass('error');
+                    else if (data.status == -3) $("#evening, #night", $form).addClass('error');
                     Registrations.calculateTotals();
                     $.unblockUI();
                 }, 'json');

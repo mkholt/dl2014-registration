@@ -53,6 +53,14 @@ if (!defined('REGISTRATION_LOAD_VIEW')) exit();
 			<label for="email">E-mail:</label> <input type="text" name="email" id="email" value="<?= $user->get('user_email') ?>" class="email" />
 		</p>
 
+        <h2>Natløb/aftenløb</h2>
+        <p>
+            På Djurslejren er der både et aftenløb mandag aften og et natløb torsdag nat.<br/>
+            Da det er forskelligt fra gruppe til gruppe, hvor skræmmende et løb skal/må være, og hvilken aldersgruppe man er på lejr med, bedes i udfylde hvor mange deltagere i skal have med på natløb og aftenløb.<br/>
+            <label for="evening">Aftenløb:</label> <input type="number" name="evening" id="evening" value="<?= $race['evening'] ?>" class="evening" /><br/>
+            <label for="night">Natløb</label> <input type="number" name="night" id="night" value="<?= $race['night'] ?>" class="night" /><br/>
+        </p>
+
         <h2>Afslut tilmelding</h2>
         <span class="message"></span>
 

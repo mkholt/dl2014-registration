@@ -2,6 +2,7 @@
 class index_model {
     const META_FIELD = 'preregistrations';
 	const META_FINAL_FIELD = 'registrations_final';
+    const META_RACE_FIELD = 'race_amount';
 
 	public function __construct()
 	{
@@ -92,7 +93,7 @@ class index_model {
         return $ret;
     }
 
-	public function set_pre_registration($data, $email, $uId = null)
+	public function set_pre_registration($data, $email, $race, $uId = null)
 	{
 		if (empty($uId))
 		{
@@ -103,6 +104,9 @@ class index_model {
 
 		$eStatus = $this->set_email($email, $uId);
 		if (!$eStatus) return -2;
+
+        update_user_meta($uId, self::META_RACE_FIELD, $race);
+        if (get_user_meta($uId, self::META_RACE_FIELD, true) != $race) return -3;
 
 		update_user_meta($uId, self::META_FIELD, $data);
 		return (get_user_meta($uId, self::META_FIELD, true) == $data);
@@ -122,6 +126,18 @@ class index_model {
 			'user_email' => $email
 		)) == $uId;
 	}
+
+    public function get_race_amount($uId = null)
+    {
+        if (empty($uId))
+        {
+            $uId = get_current_user_id();
+        }
+
+        if ($uId == 0) return false;
+
+        return get_user_meta($uId, self::META_RACE_FIELD, true);
+    }
 
     public function add_user($name, $email, $org, $pass, $rPass)
 	{
