@@ -55,7 +55,7 @@ class index_model {
 
         if ($uId == 0) return false;
 
-        $date = new DateTime();
+        $date = date('Y-m-d H:i:s');
         $data = array(
             'final' => true,
             'time' => $date
@@ -89,6 +89,7 @@ class index_model {
         if ($uId == 0) return false;
 
         $ret = get_user_meta($uId, self::META_FINAL_FIELD, true);
+		if (!empty($ret['time'])) $ret['time'] = new DateTime($ret['time']);
 
         return $ret;
     }
