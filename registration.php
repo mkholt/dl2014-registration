@@ -24,21 +24,24 @@
 
 require_once('config.php');
 require_once('controller.php');
+require_once('shortcode.php');
 
 class Registration {
 	protected $_pages = null;
 
 	public function __construct()
 	{
-		add_filter( 'parse_query', array($this,'wp_query_checker') );
-		add_filter( 'the_posts', array($this,'posts_filter') );
+            add_filter( 'parse_query', array($this,'wp_query_checker') );
+            add_filter( 'the_posts', array($this,'posts_filter') );
+            
+            $sc = new ShortCode();
 
-		if (is_admin()) {
-			register_activation_hook(__FILE__, array($this, 'plugin_install'));
-		}
+            if (is_admin()) {
+                    register_activation_hook(__FILE__, array($this, 'plugin_install'));
+            }
 
-        // Set up the timezone
-        date_default_timezone_set('Europe/Copenhagen');
+            // Set up the timezone
+            date_default_timezone_set('Europe/Copenhagen');
 	}
 
 	public function plugin_install($upgrading = FALSE)
